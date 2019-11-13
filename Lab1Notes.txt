@@ -1,0 +1,73 @@
+Net Sec: Lab 1
+
+Goal: Symmetric Encryption Algos and Encyrption modes: EBC,CBC,CTR
+      
+Tools: 
+- Use openssl command and libs - install openssl-package on linux machine
+- sudo apt-get install openssl - to install openssl binaries 
+- install header files, libraries and manuals from binaries 
+> ./config
+> make
+> make test
+> sudo make install 
+
+Task1: Create plain text file 
+
+Tast 2: Encrpyt file using different modes 
+
+> openssl enc - encrypt / decrypt file 
+
+to see openssl manual > man openssl or man enc
+
+To encrypt: 
+> openssl enc -ciphertype -e -in infile -out outfile \ -K key -iv initial_vector
+
+ - e : encryption opeartion 
+ - ciphertype: cipher and mode to be used eg. aes-128-ecb
+ - infile: input file to to be encrypted 
+ - key: key used for encryption 
+ - initial_vector: inistialization vector to be used 
+
+Task - encrpty plain.txt ->AES -> Key and IV given 
+Task 3: Encrpt .bmp pic file to .bmp encrypted pic file 
+       - generate appropiate header so the image viewing software can 
+         recognoze its an image 
+       - for bmp the first 54 bytes contain header information 
+       - hence extract the header of the original pic and replace with header of enc pic 
+
+$ head -c 54 pic_original.bmp > header
+$ tail -c +55 pic_ecb.bmp > body_ecb
+$ cat header  body_ecb > new_ecb.bmp
+$ tail -c +55 pic_cbc.bmp > body_cbc
+$ cat header  body_cbc > new_cbc.bmp
+
+ Q1: In which of the two modes, are patterns of the original image still visible and why? 
+- ECB still visible because ECB is characterisitics that each possible block of plaintext has a defined corresponding ciphertext value and vice versa. The same plaintext value will result in the same ciphertext value
+in the event of a small block size, coz some parts maybe resused often enough so that the same 
+repitive part-blocks of ciphertext/pic  can emerge and in case of an image which share big concentartion of certain colors or pattern the encrypted version shows a much more visible sequence of patterns even in the ecrpted version and hence ecb is easy to detect.
+
+Q2: In which of the two modes, the colors are still visible and why?
+Both modes of the encypted files have colors visible in them because the encrypted pic was formed from the blocks of the original file, the colors of the original file will be visible in both but one more scrambled than the other.
+
+
+ECB: ECB is characterisitics that each possible block of plaintext has a defined corresponding ciphertext value and vice versa. The same plaintext value will result in the same ciphertext value 
+in the event of a small block size, coz some parts maybe resused often enough so that the same 
+repitive part-blocks of ciphertext/pic  can emerge and in case of an image which share big concentartion of certain colors or pattern the encrypted version shows a much more visible sequence of patterns even in the ecrpted version and hence ecb is easy to detect.
+
+CBC : in CBC each plaintext block is XORed with the immediately prrevious ciphetest and then encypted. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
